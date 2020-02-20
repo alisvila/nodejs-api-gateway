@@ -14,8 +14,8 @@ router.get('/ip', async (req, res) => {
   const response1 = await api.get(req.path, { params: req.query } );
   const response2 = await api2.get(req.path, { params: req.query } );
   const data = {
-    ip: response1.data,
-    origin: response2.data,
+    ip: response1.data.ip,
+    origin: response2.data.origin,
   };
   
   res.send(data);
