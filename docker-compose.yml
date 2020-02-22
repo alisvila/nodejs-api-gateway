@@ -3,6 +3,7 @@ version: '3'
 services:
   nodejs-api-gateway:
     build: .
+    command: npm start
     volumes:
       - .:/app
       - /app/node_modules
@@ -10,3 +11,22 @@ services:
       - 8001:8001
     environment:
       - NODE_ENV=development
+    networks:
+      - test_network
+    depends_on:
+      - customers
+    
+  customers:
+    build: ./services/CustomersAPI/
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./services/CustomersAPI/:/customers
+    ports:
+      - 8000:8000
+    networks:
+      - test_network    
+
+networks:
+  test_network:
+    driver: bridge
+      
