@@ -4,7 +4,7 @@ const requestAdapter = require('../request-adapter');
 
 const api = requestAdapter('https://postman-echo.com');
 const api2 = requestAdapter('https://httpbin.org');
-const api3 = requestAdapter('http://0.0.0.0:8000');
+const api3 = requestAdapter('http://customers:8000');
 
 router.get('/get', async (req, res) => {
   const response = await api.get(req.path, { params: req.query } );
@@ -23,7 +23,7 @@ router.get('/ip', async (req, res) => {
 });
 
 router.get('/customers', async (req, res) => {
-  const response = await api3.get("/customers/", { params: req.query } );
+  const response = await api3.get(req.path, { params: req.query } );
   res.send(response.data);
 });
 
